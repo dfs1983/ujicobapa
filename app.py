@@ -1,21 +1,22 @@
-'''
-	Contoh Deloyment untuk Domain Computer Vision (CV)
-	Orbit Future Academy - AI Mastery - KM Batch 3
-	Tim Deployment
-	2022
-'''
-
 # =[Modules dan Packages]========================
 
 from flask import Flask,render_template,request,jsonify
+from flask_ngrok import run_with_ngrok
 from werkzeug.utils import secure_filename
-import pandas as pd
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 import os
 import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, \
-Flatten, Dense, Activation, Dropout,LeakyReLU
+from tensorflow.keras.utils import image_dataset_from_directory
+from tensorflow.data.experimental import AUTOTUNE
+from tensorflow.keras import Sequential, Input, Model
+from tensorflow.keras.layers import RandomRotation, RandomZoom
+from tensorflow.keras.layers.experimental.preprocessing import Rescaling
+from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
+from tensorflow.keras import applications
+from tensorflow.keras.losses import CategoricalCrossentropy
+from tensorflow.keras.optimizers import Adam
 from PIL import Image
 from fungsi import make_model
 
@@ -29,9 +30,8 @@ app.config['UPLOAD_PATH']        = './static/images/uploads/'
 
 model = None
 
-NUM_CLASSES = 20
-AksaraJawa20_classes = ["ba", "ca", "da", "dha", "ga", "ha", "ja", "ka", "la", "ma", "na", "nga",
-                         "nya", "pa", "ra", "sa", "ta", "tha", "wa", "ya"] 
+NUM_CLASSES = 5
+Wayang5_classes = ["bagong", "cepot", "gareng", "petruk", "semar"] 
 
 # =[Routing]=====================================
 
@@ -65,10 +65,12 @@ def apiDeteksi():
 			uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
 			
 			# Memuat Gambar
-			test_image         = Image.open('.' + gambar_prediksi)
+			test_image_path = os.path.join(app.config['UPLOAD_PATH'], filename)
+			test_image = Image.open(test_image_path)
+
 			
 			# Mengubah Ukuran Gambar
-			test_image_resized = test_image.resize((64, 64))
+			test_image_resized = test_image.resize((128, 128))
 			
 			# Konversi Gambar ke Array
 			image_array        = np.array(test_image_resized)
@@ -76,10 +78,10 @@ def apiDeteksi():
 			test_image_x       = np.array([image_array])
 			
 			# Prediksi Gambar
-			y_pred_test_single         = model.predict_proba(test_image_x)
+			y_pred_test_single         = model.predict(test_image_x)
 			y_pred_test_classes_single = np.argmax(y_pred_test_single, axis=1)
 			
-			hasil_prediksi = AksaraJawa20_classes[y_pred_test_classes_single[0]]
+			hasil_prediksi = Wayang5_classes[y_pred_test_classes_single[0]]
 			
 			# Return hasil prediksi dengan format JSON
 			return jsonify({
@@ -100,10 +102,12 @@ if __name__ == '__main__':
 	
 	# Load model yang telah ditraining
 	model = make_model()
-	model.load_weights("model_AksaraJawa20_cnn_tf.h5")
+	model.load_weights("model_Wayang5_cnn_tf.h5")
 
 	# Run Flask di localhost 
-	app.run(host="localhost", port=5000, debug=True)
+	run_with_ngrok(app)
+	app.run()
+
 	
 	
 

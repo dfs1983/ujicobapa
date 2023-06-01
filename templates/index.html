@@ -1,171 +1,428 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-	<!-- Judul Halaman -->
-	<title>Orbit Future Academy</title>
-	
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<!-- Icon -->
-	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-	
-	<!-- CSS -->
-	<link rel="stylesheet" href={{ url_for('static', filename='/css/bootstrap.min.css') }} type="text/css">
-	<link rel="stylesheet" href={{ url_for('static', filename='/css/client_side.css') }}  type="text/css">
-	
-	<!-- JavaScript -->
-	<script src={{ url_for('static', filename='/js/jquery_3.6.0.min.js') }} ></script>
-	<script src={{ url_for('static', filename='/js/bootstrap_3.4.1.min.js') }} ></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Wayang Indonesia</title>
+
+    <!--Icon-->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='wayangicon.ico') }}">
+
+
+    <!-- Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <!-- font -->
+    <script src="https://kit.fontawesome.com/7d288b9368.js" crossorigin="anonymous"></script>
+
+    <!-- JQuery-->
+    <script src={{ url_for('static', filename='/js/jquery_3.6.0.min.js') }}></script>
+
 </head>
 
-<body id="halamanku" data-spy="scroll" data-target=".navbar" data-offset="60">
+<body id="halamanutama">
+    <!--Nav Bar-->
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #64442C;">
+        <div class="container-fluid" style="margin-left: 14px;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li>
+                        <a class="navbar-brand" href="/templates/index.html">
+                            <img src="{{ url_for('static', filename='images/wayang2.png') }}" alt="Logo WI" width="40"
+                                height="40" />
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-light" aria-current="page" href="/templates/index.html"><b>WAYANG
+                                INDONESIA</b></a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#tentang">TENTANG</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#aplikasi">APLIKASI</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#jeniswayang">INFORMASI</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#starla">STARLA 1</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--slide show-->
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ url_for('static', filename='images/slideshow- (2).jpg') }}" class="d-block w-100" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h1 style="font-size: 100px;">LESTARI</h1>
+                    <p style="font-size: 20px;">Pelestarian Wayang Sebagai Budaya Bangsa Indonesia.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <!--<img src="/static/img/slideshow- (3).jpg" class="d-block w-100" alt="Sangkar KBS">-->
+                <img src="{{ url_for('static', filename='images/slideshow- (3).jpg') }}" class="d-block w-100" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h1 style="font-size: 100px;">EDUKASI</h1>
+                    <p style="font-size: 20px;">Menanam Rasa Cinta Serta Peduli Terhadap Budaya Bangsa Indonesia.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='images/slideshow- (1).jpg') }}" class="d-block w-100" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h1 style="font-size: 100px;">REKREASI</h1>
+                    <p style="font-size: 20px;">Wisata Alternatif Yang Terjangkau Dan Penuh Makna.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Sebelum</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Selanjut</span>
+        </button>
+    </div>
 
-	<!-- Navigation Bar -->
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			
-			<!-- Logo -->
-			<div class="navbar-header">
-				<img src={{ url_for('static', filename='/images/orbit_logo.jpg') }} alt="Orbit Logo" 
-				width="50" height="50" align="left">
-				<a class="navbar-brand" href="#halamanku">&#160; Orbit Future Academy</a>
-			</div>
-			
-			<!-- Daftar Halaman -->
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#informasi">INFORMASI</a></li>
-					<li><a href="#aplikasi">APLIKASI</a></li>
-					<li><a href="#anggotaKelompok">ANGGOTA KELOMPOK</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+    <!-- Tentang -->
+    <div>
+        <div id="tentang" class="container-fluid p-5 bg-dark text-light">
+            <br>
+            <div class="row g-0">
+                <div class="col-sm-3">
+                    <img src="{{ url_for('static', filename='images/wayang2.png') }}" class="img-fluid rounded"
+                        alt="Logo Wayang Indonesia" style="height: 300px; width:300px;" />
+                </div>
+                <div class="col">
+                    <div class="card-body mt-3">
+                        <h5 class="card-title pb-3" style="font-size: 35px;"><b>Aplikasi Wayang Indonesia</b></h5>
+                        <p class="card-text" style="font-size: 20px; text-align: justify;">
+                            Aplikasi Wayang Indonesia merupakan website yang mengklasifikasikan gambar wayang
+                            berdasarkan
+                            nama tokoh.
+                            Wayang di Indonesia mempunyai karakter yang beragam tergantung pada setiap daerah dan jenis
+                            wayang.
+                            Beberapa karakter wayang meliputi wayang cepot, bagong, gareng, semar, petruk, dan
+                            sebagainya.
+                            Model yang digunakan dalam aplikasi ini yaitu metode convolutional neural network (CNN).
+                            Dengan aplikasi ini diharapkan dapat meningkatkan pengetahuan dan melestarikan budaya wayang
+                            di
+                            Indonesia.
+                        </p>
+                        <!-- Tombol Mulai -->
+                        <nav id="navgo" class="navbar" style="z-index: 0;">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item">
+                                    <a class="btn btn-default btn-sm" href="#aplikasi"
+                                        style="background-color:#f5f5f5; color: black;">Mulai</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
 
-	<!-- Bagian Halaman (Informasi) -->
-	<div id="informasi" class="container-fluid">
-		<br>
-		<br>
-		<div class="row">
-			<div class="col-sm-6">
-				<h2>CIC</h2>
-				<h4>Cifar-10 Image Classification</h4><br>
-				<p style="text-align: justify;text-justify: inter-word;">
-					Aplikasi ini dibuat khusus untuk mendeteksi sebuah objek dari gambar yang diberikan.
-					Adapun dataset yang digunakan untuk model klasifikasi gambar ini adalah CIFAR-10. 
-					Pada dataset CIFAR-1, terdapat 10 objek yang dapat diklasifikasi yaitu pesawat, mobil, burung, kucing,
-					rusa, anjing, katak, kuda, kapal, dan truk.
-					Untuk dapat menggunakan aplikasi ini, pengguna hanya mengunggah sebuah gambar dengan format 'JPG'. 
-					Hasil deteksi objek akan ditampilkan setelah pengguna mengunggah gambar tersebut.
-				</p>
-				<br>
+    <!-- Bagian Halaman (Aplikasi) -->
+    <div id="aplikasi" data-bs-target="#navgo">
+        <br>
+        <br>
+        <br>
+        <h3 style="text-align: center; margin-top: 10px;"><b>APLIKASI</b></h3>
+        <div class="row">
+            <div class="col-sm-6">
+                <h4 style="margin-left: 50px;">Scan Gambar </h4>
+                <form style="margin-left: 50px;">
+                    <!-- Input atau Upload Gambar dari Pengguna-->
+                    <img src={{ url_for('static', filename='images/contoh1.jpg') }} width="300"></img>
+                    <p>Silahkan klik scan untuk memulai</p>
+                    <p>
+                        <input type="file" id="input_gambar" name="file">
+                    </p>
+                    </br>
+                    <!-- Tombol Prediksi -->
+                    <button type="submit" id="prediksi_submit" class="btn btn-dark btn-lg">Scan</button>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <br>
+                <!-- Bagian Halaman untuk Hasil Prediksi -->
+                <div id="hasil_prediksi" align="center">
+                    <!-- Hasil Prediksi akan ditampilkan di sini-->
+                </div>
 
-				<!-- Tombol Mulai -->
-				<nav id="navgo" class="navbar" style="background-color:#ffffff;z-index: 0;">
-					<ul class="nav nav-pills">
-						<li class="nav-item">
-							<a class="btn btn-default btn-lg" href="#aplikasi" style="background-color:#28ace5">Mulai</a>
-						</li>
-					</ul>
-				</nav>
+            </div>
+        </div>
+        </br>
+        </br>
+        </br>
+    </div>
 
-			</div>
-			<div class="col-sm-6">
-				<br>
-				<br>
-				<!-- Gambar Deskripsi Aplikasi -->
-				<div align="center">
-					<img src={{ url_for('static', filename='/images/app-display.JPG') }} height="300" ></img>
-				</div>
-			</div>
-		</div>
-		<br>
-	</div>
+    <!-- Informasi-->
+    <div id="informasi">
+        <div class="container-fluid p-5" style="background-color: #64442C; color: #f5f5f5;">
+            <div class="row g-0">
+                <div class="col-md-10">
+                    <div class="card-body mt-4">
+                        <h5 class="card-title pb-3" style="font-size: 35px;"><b>Apa itu Wayang?</b></h5>
+                        <p class="card-text" style="font-size: 20px;">
+                            Wayang merupakan sebuah seni pertunjukan tradisional Indonesia yang menggunakan boneka kayu
+                            atau kulit yang
+                            dioperasikan oleh dalang (pemain boneka) untuk menceritakan cerita-cerita epik atau
+                            mitologis.
+                            Seni wayang memiliki peran penting dalam budaya dan sejarah Indonesia.
+                            Wayang di Indonesia begitu melimpah karena setiap daerah memiliki cerita dan jenis
+                            tersendiri.
+                        </p>
+                        <button type="button" class="btn btn-light"><a href="#jeniswayang"
+                                style="color: black; text-decoration: none;">Cari
+                                Tahu Yuk!</a></button>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="{{ url_for('static', filename='images/wayang purwa.jpg') }}" class="img-fluid rounded"
+                        alt="Wayang Gambar" style="height: 250px; width:250px;" />
+                </div>
+            </div>
+        </div>
+        <!--Informasi Pagelaran Wayang-->
+        <div class="container-fluid bg-light">
+            <br>
+            <h3 style="text-align: center; padding: 15px; color: black;"><b>PAGELARAN WAYANG</b></h3>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card text-bg-dark">
+                        <img src="{{ url_for('static', filename='images/poster-wayang (2).jpg') }}" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card text-bg-dark">
+                        <img src="{{ url_for('static', filename='images/poster-wayang (1).jpg') }}" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card text-bg-dark">
+                        <img src="{{ url_for('static', filename='images/poster-wayang (3).jpg') }}" />
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
 
+    <div id="jeniswayang" class="container-fluid bg-dark">
+        <br>
+        <h3 style="text-align: center; padding: 15px; color: #f5f5f5;"><b>DAFTAR WAYANG</b></h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <!--Konten ke 1-->
+            <div class="col">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4 ">
+                            <img src="{{ url_for('static', filename='images/bagongcontoh.jpg') }}"
+                                class="img-fluid rounded-start" alt="Wayang Bagong" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Wayang Bagong</h5>
+                                <p class="card-text">Merupakan tokoh yang termasuk panakawan dalam cerita wayang.
+                                    Karakter Bagong dikenal karena kecerdasan, keberanian, tingkah laku yang lucu,
+                                    kekuatan yang luar biasa dan memiliki keahlian dalam berbagai seni bela diri.</p>
+                                <p class="card-text"><small class="text-muted">Karakteristik : Botak, bibir dower, perut
+                                        buncit</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Konten ke 2-->
+            <div class="col">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='images/garengcontoh.jpg') }}"
+                                class="img-fluid rounded-start" alt="Wayang Gareng" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Wayang Gareng</h5>
+                                <p class="card-text">Merupakan tokoh yang termasuk panakawan dalam cerita wayang.
+                                    Sosok Gareng diartikan sebagai pesan untuk berhati-hati dalam bertindak dan tidak
+                                    mengambil milik orang lain atau yang bukan haknya.
+                                </p>
+                                <p class="card-text"><small class="text-muted">Karakteristik : Hidung bulat, tangan patah, kaki pincang, dan mata yang juling.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-	<!-- Bagian Halaman (Aplikasi) -->
-	<div id="aplikasi" data-bs-spy="scroll" data-bs-target="#navgo" data-bs-offset="0" class="scrollspy-example" tabindex="0">
-		<br>
-		<br>
-		<div class="row">
-			<div class="col-sm-6">
-				</br>
-				<h3 style="margin-left: 50px;">Upload Gambar </h3>
-					<form style="margin-left: 50px;">
-						<!-- Input atau Upload Gambar dari Pengguna -->
-						<img src={{ url_for('static', filename='/images/ex-upload.JPG') }} width="300" ></img>
-						<p>silahkan upload sebuah gambar</p>
-						<p>
-							<input type="file" id="input_gambar" name="file">
-						</p>
-						</br>
-						<!-- Tombol Prediksi -->
-						<button type="submit" id="prediksi_submit" class="btn btn-default btn-lg">Prediksi</button>
-					</form>
-			</div>
-			<div class="col-sm-6">
-				<br>
-				<!-- Bagian Halaman untuk Hasil Prediksi -->
-				<div id="hasil_prediksi" align="center">
-					<!-- Hasil Prediksi akan ditampilkan di sini-->
-				</div>
-			</div>
-		</div>
-		</br>
-		</br>
-		</br>
-		</br>
-	</div>
+            <!--Konten ke 3-->
+            <div class="col">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='images/petrukcontoh.jpg') }}"
+                                class="img-fluid rounded-start" alt="Wayang Petruk" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Wayang Petruk</h5>
+                                <p class="card-text">Merupakan tokoh yang termasuk panakawan dalam cerita wayang.
+                                    Petruk memberikan nuansa humor dan keceriaan dalam pertunjukan yang menghangatkan
+                                    suasana.
+                                </p>
+                                <p class="card-text"><small class="text-muted">Karakteristik : Rambut berantakan, alis
+                                        terangkat tinggi, senyum lebar</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Konten ke 4-->
+            <div class="col">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='images/semarcontoh.jpg') }}"
+                                class="img-fluid rounded-start" alt="Wayang Semar" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Wayang Semar</h5>
+                                <p class="card-text">Merupakan tokoh yang termasuk panakawan dalam cerita wayang.</p>
+                                <p class="card-text"><small class="text-muted">Karakteristik : Tubuh bulat, mata sembab,
+                                        rambut bergaya kuncung </small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Konten ke 5-->
+            <div class="col">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='images/cepotcontoh.jpg') }}"
+                                class="img-fluid rounded-start" alt="Wayang Cepot" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Wayang Cepot</h5>
+                                <p class="card-text">Merupakan tokoh dalang atau penari muda yang menjadi salah satu
+                                    tokoh lucu dalam pertunjukan wayang golek.
+                                    Karakter Cepot biasanya digambarkan sebagai tokoh penghibur yang cerdik, cerewet,
+                                    dan penuh dengan lelucon.</p>
+                                <p class="card-text"><small class="text-muted">Karakteristik : Gigi di rahang bawah,
+                                        kulit warna merah</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
 
-	<!-- Bagian Halaman (Anggota Kelompok) -->
-	<div id="anggotaKelompok" class="container-fluid text-center">
-		<br>
-		<h2>ANGGOTA KELOMPOK</h2>
-		<h4>Tim Deployment dan Tim CV</h4>
-		<br>
-		<div class="row slideanim">
-			<div class="col-sm-4">
-				<span class="glyphicon glyphicon-user logo-small"></span>
-				<h4>BUDI</h4>
-				<p>Universitas Sumatera</p>
-			</div>
-			<div class="col-sm-4">
-				<span class="glyphicon glyphicon-user logo-small"></span>
-				<h4>AYU</h4>
-				<p>Universitas Jawa dan Bali</p>
-			</div>
-			<div class="col-sm-4">
-				<span class="glyphicon glyphicon-user logo-small"></span>
-				<h4>TONO</h4>
-				<p>Universitas Kalimantan</p>
-			</div>
-		</div>
-	    <br>
-	    <div class="row slideanim">
-			<div class="col-sm-6">
-				<span class="glyphicon glyphicon-user logo-small"></span>
-				<h4>PUTRA</h4>
-				<p>Universitas Sulawesi</p>
-			</div>
-			<div class="col-sm-6">
-				<span class="glyphicon glyphicon-user logo-small"></span>
-				<h4>PUTRI</h4>
-				<p>Universitas Kepulauan Nusa, Maluku dan Papua</p>
-			</div>
-	    </div>
-	</div>
+    <!-- Bagian Halaman (Anggota Kelompok) -->
+    <div id="starla" class="container-fluid text-center">
+        <br>
+        <h2><b>ANGGOTA KELOMPOK</b></h2>
+        <h4>Tim Starla 1</h4>
+        <br>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2">
+                <img src="{{ url_for('static', filename='images/danielf.png') }}" alt="Daniel" width="220px" />
+                <h5 style="margin-top: 7px;">Daniel Frederico S.</h5>
+                <p>Universitas Negeri Surabaya</p>
+            </div>
+            <div class="col-sm-2">
+                <img src="{{ url_for('static', filename='images/adindaa.png') }}" alt="Adinda" width="220px" />
+                <h5 style="margin-top: 7px;">Adinda Aulia R.</h5>
+                <p>Universitas Pembangunan Nasional "Veteran" Jawa Timur</p>
+            </div>
+            <div class="col-sm-2">
+                <img src="{{ url_for('static', filename='images/betan.png') }}" alt="Beta" width="220px" />
+                <h5 style="margin-top: 7px;">Beta Narulita A.</h5>
+                <p>Universitas Nahdlatul Ulama Surabaya</p>
+            </div>
+            <div class="col-sm-2">
+                <img src="{{ url_for('static', filename='images/raniay.png') }}" alt="Rania" width="220px" />
+                <h5 style="margin-top: 7px;">Rania Yasmin M.</h5>
+                <p>Politeknik Perkapalan Negeri Surabaya</p>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+        <br>
+    </div>
 
-	<!-- Footer -->
-	<footer class="container-fluid text-center">
-		<a href="#halamanku" title="To Top">
-			<span class="glyphicon glyphicon-chevron-up"></span>
-		</a>
-		<p>Orbit Future Academy <br> <a href="https://orbitfutureacademy.id/">orbitfutureacademy.id</a></p>
-	</footer>
+    <!-- Footer-->
+    <footer class="bg-dark text-center text-light">
+        <div class="container-fluid p-2">
+            <a href="#halamanutama" title="To Top">
+                <i class="fa-solid fa-caret-up" style="color: #ffffff;"></i></span>
+            </a>
+            <p>Kembali ke Atas <br>
+                <span>Terhubung dengan kami di jejaring sosial :
+                    <a class="link-secondary m-2" href="https://github.com/dfs1983/Project_Akhir_MSIB.git"
+                        role="button">
+                        <i class="fa-brands fa-github" style="color: #ffffff;"></i></a>
+                    <a class="link-secondary m-2" href="####" role="button" style="color: #f5f5f5;"><i
+                            class="fa-brands fa-youtube"></i></a>
+                    <a class="link-secondary m-2" href="####" style="color: #f5f5f5;">orbitfutureacademy.id</a>
+                </span></p>
+        </div>
+    </footer>
+    <!-- Footer -->
 
-	<!-- JavaScript untuk Animasi Scroll dan Prediksi Model -->
-	<script  src={{ url_for('static', filename='/js/client_side.js') }}></script>
+    <!-- Label -->
+    <div class="labeluts">
+        <div class="container-fluid text-center" style="background-color: #64442C;">
+            <h3 style="color: #f5f5f5; font-size: 15px; padding:10px;">© 2023 Copyright : Proyek Akhir MSIB 4 Kelompok
+                Starla 1</h3>
+        </div>
+    </div>
+
+    <!-- JavaScript untuk Prediksi Model -->
+    <script src={{ url_for('static', filename='/js/clientside.js') }}></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+        integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+        integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous">
+    </script>
 
 </body>
+
 </html>
