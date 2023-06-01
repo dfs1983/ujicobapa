@@ -1,21 +1,36 @@
-import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Activation, Dropout,LeakyReLU
+import pandas as pd
+import numpy as np
 
-def make_model():
-    model = Sequential()
-    kernel = 3
-    model.add(Conv2D(filters=64, kernel_size=kernel, input_shape=(size_w, size_h, 3), activation='relu'))
-    model.add(MaxPool2D(pool_size=(2, 2)))
-    model.add(Conv2D(filters=128, kernel_size=kernel, activation='relu'))
-    model.add(MaxPool2D(pool_size=(2, 2)))
-    model.add(Conv2D(filters=256, kernel_size=kernel, activation='relu'))
-    model.add(MaxPool2D(pool_size=(2, 2)))
-    model.add(Conv2D(filters=512, kernel_size=kernel, activation='relu'))
-    model.add(MaxPool2D(pool_size=(2, 2)))
-    model.add(Flatten())
-    model.add(Dense(256, activation='relu'))
-    model.add(Dropout(0.2))
-    model.add(Dense(20, activation='softmax'))
+import tensorflow
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.optimizers import Adam, SGD
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Input, Flatten, Dropout, UpSampling2D, GlobalAveragePooling2D
+from tensorflow.keras.models import Model
+from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
+
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import random, os
+
+def make_model_mobile():
+    img_size = 224
+    batch_size_train = 32
+    batch_size_test = 1
+    optimizer = Adam(learning_rate=0.00001)
     
-    return model
+    inp = Input(shape = (224,224,3))
+    model_mobile = MobileNetV2(input_shape=(224,224,3), include_top=False, weights='imagenet')
+    x1 = model_mobile(inp)
+    x2 = GlobalAveragePooling2D()(x1)
+    out = Dense(6, activation='softmax')(x2)
+    
+    model_mobile = Model(inputs = inp, outputs = out)
+    model_mobile.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+    STEP_SIZE_TRAIN=train_generator.n//train_generator.batch_size
+    model_mobile.fit(train_generator,
+                     steps_per_epoch=STEP_SIZE_TRAIN,
+                     epochs=20,
+                     validation_data = test_generator
+    )
+    
+    return mobile_model
