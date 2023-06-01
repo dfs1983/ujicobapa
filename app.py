@@ -101,7 +101,7 @@ def apiDeteksi():
 if __name__ == '__main__':
 	
 	# Load model yang telah ditraining
-	model = make_model()
+	model = make_model_mobile()
 	model.load_weights("model_wayang.h5")
 
 	# Run Flask di localhost 
