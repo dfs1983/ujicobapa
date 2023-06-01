@@ -95,7 +95,7 @@ def apiDeteksi():
 
 if __name__ == '__main__':
     # Load model yang telah ditraining
-    model = make_model()
+    model = make_model(train_data)
 
     model.load_weights("model_wayang.h5")
 
