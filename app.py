@@ -4,6 +4,7 @@ from flask import Flask,render_template,request,jsonify
 from flask_ngrok import run_with_ngrok
 from werkzeug.utils import secure_filename
 import numpy as np
+<<<<<<< HEAD
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
@@ -19,6 +20,20 @@ from tensorflow.keras.losses import CategoricalCrossentropy
 from tensorflow.keras.optimizers import Adam
 from PIL import Image
 from fungsi import make_model
+=======
+
+import tensorflow
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.optimizers import Adam, SGD
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Input, Flatten, Dropout, UpSampling2D, GlobalAveragePooling2D
+from tensorflow.keras.models import Model
+from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
+
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import random, os
+from fungsi import make_model_mobile
+>>>>>>> 27fca911f37c2884c17a3ced190ec5f068f5268e
 
 # =[Variabel Global]=============================
 
@@ -30,8 +45,13 @@ app.config['UPLOAD_PATH']        = './static/images/uploads/'
 
 model = None
 
+<<<<<<< HEAD
 NUM_CLASSES = 5
 Wayang5_classes = ["bagong", "cepot", "gareng", "petruk", "semar"] 
+=======
+NUM_CLASSES = 6
+Wayang6_classes = ["Wayang Beber", "Wayang Gedog", "Wayang Golek", "Wayang Krucil", "Wayang Kulit", "Wayang Suluh"]
+>>>>>>> 27fca911f37c2884c17a3ced190ec5f068f5268e
 
 # =[Routing]=====================================
 
@@ -56,7 +76,7 @@ def apiDeteksi():
 	
 		# Set/mendapatkan extension dan path dari file yg diupload
 		file_ext        = os.path.splitext(filename)[1]
-		gambar_prediksi = '/static/images/uploads/' + filename
+		gambar_prediksi = './static/images/uploads/' + filename
 		
 		# Periksa apakah extension file yg diupload sesuai (jpg)
 		if file_ext in app.config['UPLOAD_EXTENSIONS']:
@@ -70,12 +90,18 @@ def apiDeteksi():
 
 			
 			# Mengubah Ukuran Gambar
+<<<<<<< HEAD
 			test_image_resized = test_image.resize((128, 128))
+=======
+			test_image_resized = test_image.resize((224, 224))
+>>>>>>> 27fca911f37c2884c17a3ced190ec5f068f5268e
 			
 			# Konversi Gambar ke Array
 			image_array        = np.array(test_image_resized)
 			test_image_x       = (image_array / 255) 
 			test_image_x       = np.array([image_array])
+
+			#test_image_x = tf.image.resize(test_image_x, IMG_SIZE)
 			
 			# Prediksi Gambar
 			y_pred_test_single         = model.predict(test_image_x)
@@ -101,14 +127,22 @@ def apiDeteksi():
 if __name__ == '__main__':
 	
 	# Load model yang telah ditraining
+<<<<<<< HEAD
 	model = make_model()
 	model.load_weights("model_Wayang5_cnn_tf.h5")
+=======
+	model = make_model_mobile()
+	model.load_weights("model_wayang.h5")
+>>>>>>> 27fca911f37c2884c17a3ced190ec5f068f5268e
 
 	# Run Flask di localhost 
 	run_with_ngrok(app)
 	app.run()
+<<<<<<< HEAD
 
 	
 	
 
 
+=======
+>>>>>>> 27fca911f37c2884c17a3ced190ec5f068f5268e
