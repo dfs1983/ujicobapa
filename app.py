@@ -64,7 +64,7 @@ def apiDeteksi():
 
 if __name__ == '__main__':
     model = make_model()  # Adjust this line based on your model creation logic
-    model.load_weights("model_wayang.h5")
+    model.load_weights("model_Wayang5_cnn_tf.h5")
 
     run_with_ngrok(app)
     app.run()
