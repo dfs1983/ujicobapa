@@ -9,6 +9,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, MaxPool2D, Flatten, Dense, Activation, Dropout, LeakyReLU
 from PIL import Image
 from fungsi import make_model
+from get_train_data import get_train_data  # Import the function that retrieves the training data
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -17,6 +18,7 @@ app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.JPG', '.png', '.PNG']
 app.config['UPLOAD_PATH'] = './static/images/uploads/'
 
 model = None
+train_data = None  # Define the variable to hold the training data
 
 NUM_CLASSES = 5
 Wayang5_classes = ["bagong", "cepot", "gareng", "petruk", "semar"]
@@ -63,6 +65,7 @@ def apiDeteksi():
             })
 
 if __name__ == '__main__':
+    train_data = get_train_data()  # Call the function to obtain the training data
     model = make_model(train_data)
     model.load_weights("model_wayang.h5")
 
