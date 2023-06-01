@@ -63,8 +63,10 @@ def apiDeteksi():
             })
 
 if __name__ == '__main__':
-    model = make_model()  # Adjust this line based on your model creation logic
+    train_data = get_train_data()  # Call the function to obtain the training data
+    model = make_model(train_data)  # Pass the train_data argument to make_model()
     model.load_weights("model_Wayang5_cnn_tf.h5")
 
     run_with_ngrok(app)
     app.run()
+
