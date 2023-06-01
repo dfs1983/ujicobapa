@@ -1,72 +1,109 @@
-from flask import Flask, render_template, request, jsonify
+# =[Modules dan Packages]========================
+
+from flask import Flask,render_template,request,jsonify
 from flask_ngrok import run_with_ngrok
 from werkzeug.utils import secure_filename
-import pandas as pd
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 import os
 import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, MaxPool2D, Flatten, Dense, Activation, Dropout, LeakyReLU
+from tensorflow.keras.utils import image_dataset_from_directory
+from tensorflow.data.experimental import AUTOTUNE
+from tensorflow.keras import Sequential, Input, Model
+from tensorflow.keras.layers import RandomRotation, RandomZoom
+from tensorflow.keras.layers.experimental.preprocessing import Rescaling
+from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
+from tensorflow.keras import applications
+from tensorflow.keras.losses import CategoricalCrossentropy
+from tensorflow.keras.optimizers import Adam
 from PIL import Image
 from fungsi import make_model
+
+# =[Variabel Global]=============================
 
 app = Flask(__name__, static_url_path='/static')
 
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
-app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.JPG', '.png', '.PNG']
-app.config['UPLOAD_PATH'] = './static/images/uploads/'
+app.config['UPLOAD_EXTENSIONS']  = ['.jpg','.JPG', '.png', '.PNG']
+app.config['UPLOAD_PATH']        = './static/images/uploads/'
 
 model = None
 
 NUM_CLASSES = 5
-Wayang5_classes = ["bagong", "cepot", "gareng", "petruk", "semar"]
+Wayang5_classes = ["bagong", "cepot", "gareng", "petruk", "semar"] 
 
+# =[Routing]=====================================
+
+# [Routing untuk Halaman Utama atau Home]
 @app.route("/")
 def beranda():
-    return render_template('index.html')
+	return render_template('index.html')
 
-@app.route("/api/deteksi", methods=['POST'])
+# [Routing untuk API]	
+@app.route("/api/deteksi",methods=['POST'])
 def apiDeteksi():
-    hasil_prediksi = '(none)'
-    gambar_prediksi = '(none)'
+	# Set nilai default untuk hasil prediksi dan gambar yang diprediksi
+	hasil_prediksi  = '(none)'
+	gambar_prediksi = '(none)'
 
-    uploaded_file = request.files['file']
-    filename = secure_filename(uploaded_file.filename)
+	# Get File Gambar yg telah diupload pengguna
+	uploaded_file = request.files['file']
+	filename      = secure_filename(uploaded_file.filename)
+	
+	# Periksa apakah ada file yg dipilih untuk diupload
+	if filename != '':
+	
+		# Set/mendapatkan extension dan path dari file yg diupload
+		file_ext        = os.path.splitext(filename)[1]
+		gambar_prediksi = '/static/images/uploads/' + filename
+		
+		# Periksa apakah extension file yg diupload sesuai (jpg)
+		if file_ext in app.config['UPLOAD_EXTENSIONS']:
+			
+			# Simpan Gambar
+			uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
+			
+			# Memuat Gambar
+			test_image_path = os.path.join(app.config['UPLOAD_PATH'], filename)
+			test_image = Image.open(test_image_path)
 
-    if filename != '':
-        file_ext = os.path.splitext(filename)[1]
-        gambar_prediksi = '/static/images/uploads/' + filename
+			
+			# Mengubah Ukuran Gambar
+			test_image_resized = test_image.resize((128, 128))
+			
+			# Konversi Gambar ke Array
+			image_array        = np.array(test_image_resized)
+			test_image_x       = (image_array / 255) 
+			test_image_x       = np.array([image_array])
+			
+			# Prediksi Gambar
+			y_pred_test_single         = model.predict(test_image_x)
+			y_pred_test_classes_single = np.argmax(y_pred_test_single, axis=1)
+			
+			hasil_prediksi = Wayang5_classes[y_pred_test_classes_single[0]]
+			
+			# Return hasil prediksi dengan format JSON
+			return jsonify({
+				"prediksi": hasil_prediksi,
+				"gambar_prediksi" : gambar_prediksi
+			})
+		else:
+			# Return hasil prediksi dengan format JSON
+			gambar_prediksi = '(none)'
+			return jsonify({
+				"prediksi": hasil_prediksi,
+				"gambar_prediksi" : gambar_prediksi
+			})
 
-        if file_ext in app.config['UPLOAD_EXTENSIONS']:
-            uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
-
-            test_image = Image.open('.' + gambar_prediksi)
-            test_image_resized = test_image.resize((64, 64))
-            image_array = np.array(test_image_resized)
-            test_image_x = (image_array / 255)
-            test_image_x = np.array([image_array])
-
-            y_pred_test_single = model.predict(test_image_x)
-            y_pred_test_classes_single = np.argmax(y_pred_test_single, axis=1)
-
-            hasil_prediksi = Wayang5_classes[y_pred_test_classes_single[0]]
-
-            return jsonify({
-                "prediksi": hasil_prediksi,
-                "gambar_prediksi": gambar_prediksi
-            })
-        else:
-            gambar_prediksi = '(none)'
-            return jsonify({
-                "prediksi": hasil_prediksi,
-                "gambar_prediksi": gambar_prediksi
-            })
+# =[Main]========================================		
 
 if __name__ == '__main__':
-    train_data = get_train_data()  # Call the function to obtain the training data
-    model = make_model(train_data)  # Pass the train_data argument to make_model()
-    model.load_weights("model_Wayang5_cnn_tf.h5")
+	
+	# Load model yang telah ditraining
+	model = make_model()
+	model.load_weights("model_Wayang5_cnn_tf.h5")
 
-    run_with_ngrok(app)
-    app.run()
-
+	# Run Flask di localhost 
+	run_with_ngrok(app)
+	app.run()
